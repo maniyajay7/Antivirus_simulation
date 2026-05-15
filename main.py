@@ -7,7 +7,7 @@
 ║  heuristic analysis, real-time filesystem monitoring, and        ║
 ║  automated quarantine isolation.                                 ║
 ║                                                                  ║
-║  Author  : Maniya Jay Maheshbhai                                 ║
+║  Author  : Maniya Jay                                           ║
 ║                                                                  ║
 ║  This tool is for EDUCATIONAL and ETHICAL use only.              ║
 ║  It does not detect real malware unless real signatures are       ║
@@ -86,7 +86,7 @@ SUBTITLE = (
 )
 
 AUTHOR_LINE = (
-    "[dim]Developed by [bold bright_white]Maniya Jay Maheshbhai[/bold bright_white]"
+    "[dim]Developed by [bold bright_white]Maniya Jay [/bold bright_white]"
 )
 
 
