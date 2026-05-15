@@ -180,4 +180,4 @@ This tool is developed **exclusively for educational purposes** as part of an ac
 
 ## 📄 License
 
-Academic project — Devang Patel Institute of Advance Technology and Research (DEPSTAR), 2025–2026.
+Academic project
