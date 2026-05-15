@@ -1,6 +1,7 @@
 # CwX — Basic Antivirus Simulation (Signature & Heuristic Scanner)
 
 > **Author:** Maniya Jay 
+Technology and Research (DEPSTAR)  
 > **Academic Year:** 2025–2026  
 > **Domain:** Cybersecurity Architecture & Penetration Testing Fundamentals
 
@@ -13,7 +14,7 @@ CwX is a **terminal-based antivirus simulation** built in Python that demonstrat
 1. **Signature-Based Scanning** — Comparing file hashes against a known malware database
 2. **Heuristic Entropy Analysis** — Detecting packed/encrypted payloads using Shannon entropy
 
-The tool also features **real-time filesystem monitoring** (using OS-level events), **automated quarantine isolation**, and **SIEM-compatible JSON audit logging** — core components of modern EDR/XDR security stacks.
+The tool also features **real-time filesystem monitoring** (using OS-level events), **automated quarantine isolation**, **custom path scanning**, and **SIEM-compatible JSON audit logging** — core components of modern EDR/XDR security stacks.
 
 ---
 
@@ -51,7 +52,10 @@ When a threat is confirmed (either by signature match or high entropy), the file
 ### 5. Real-Time Filesystem Monitoring (Watchdog)
 The `watchdog` library hooks into the OS's native filesystem notification API (`ReadDirectoryChangesW` on Windows, `inotify` on Linux) to detect new or modified files the instant they appear on disk — before the user ever opens them. This mirrors how production EDR agents work.
 
-### 6. SIEM-Compatible Audit Logging
+### 6. Custom Path Scanning (Option 5)
+Instead of forcing the user to copy or move files into the default `scan_target/` directory, CwX allows instant scanning of any file or folder on the system. You can drag and drop a file directly into the terminal, and the scanner will analyze that exact absolute path.
+
+### 7. SIEM-Compatible Audit Logging
 Every action is logged in **JSON Lines (JSONL)** format with ISO-8601 timestamps, event types, severity levels, and metadata payloads. This format is directly ingestible by enterprise SIEM platforms (Splunk, Elastic Security, Microsoft Sentinel, Google Chronicle).
 
 ---
@@ -73,11 +77,12 @@ basic_antivirus_sim/
 │   └── logger.py              # JSONL audit logger
 ├── database/
 │   └── signatures.json        # Malware signature database
-├── scan_target/               # ← Place files here to scan
+├── scan_target/               # ← Default directory for testing
 ├── quarantine/                # ← Threats are isolated here
 ├── logs/
 │   └── cwx_audit.jsonl        # Auto-generated audit trail
 ├── requirements.txt
+├── generate_test_malware.py   # Generator for safe test specimens
 └── README.md
 ```
 
@@ -109,15 +114,10 @@ basic_antivirus_sim/
 # 1. Navigate to the project directory
 cd basic_antivirus_sim
 
-# 2. (Recommended) Create a virtual environment
-python -m venv venv
-venv\Scripts\activate        # Windows
-# source venv/bin/activate   # Linux/macOS
-
-# 3. Install dependencies
+# 2. Install dependencies
 pip install -r requirements.txt
 
-# 4. Run the application
+# 3. Run the application
 python main.py
 ```
 
@@ -125,30 +125,16 @@ python main.py
 
 ## 🧪 Testing: How to Trigger a Quarantine
 
-### Test 1: Signature Match (Trojan Simulation)
-Create a test file whose hash matches a signature in the database:
-
+### Step 1: Generate the Test Specimens
+Run the included test generator. This will create **8 completely safe** "dummy" malware files in your `scan_target` folder to test the different detection layers:
 ```bash
-echo test> scan_target\malware_test.txt
+python generate_test_malware.py
 ```
 
-> **Note:** The string `test` (with a newline) produces the hash `f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2`, which matches `Trojan.TestPayload.CwX` in the signature database.
-
-### Test 2: High Entropy File (Heuristic Detection)
-Create a file filled with random bytes to simulate a packed/encrypted payload:
-
-```bash
-python -c "import os; open('scan_target/encrypted_payload.bin','wb').write(os.urandom(4096))"
-```
-
-This file will have entropy close to 8.0 and will be flagged as suspicious by the heuristic engine.
-
-### Test 3: Clean File
-```bash
-echo This is a normal safe document> scan_target\safe_doc.txt
-```
-
-This file will pass both checks and be marked as **CLEAN**.
+### Step 2: Test the Scanners
+1. **Option 1 (Full Scan):** Scans everything in `scan_target/` at once. You'll see the progress bars analyze each file, identify threats, and move them to `/quarantine`.
+2. **Option 2 (Monitor Mode):** Leaves the scanner running in the background. If you create or drop a new file into `scan_target/`, it catches it in real-time.
+3. **Option 5 (Custom Scan):** Drag and drop any file from your computer directly into the terminal window to scan it instantly.
 
 ---
 
@@ -179,4 +165,4 @@ This tool is developed **exclusively for educational purposes** as part of an ac
 
 ## 📄 License
 
-Academic project
+Academic project 
