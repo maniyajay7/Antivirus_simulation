@@ -8,9 +8,6 @@
 ║  automated quarantine isolation.                                 ║
 ║                                                                  ║
 ║  Author  : Maniya Jay Maheshbhai                                 ║
-║  ID      : 24DCS050                                              ║
-║  Institute: Devang Patel Institute of Advance Technology         ║
-║             and Research (DEPSTAR)                                ║
 ║                                                                  ║
 ║  This tool is for EDUCATIONAL and ETHICAL use only.              ║
 ║  It does not detect real malware unless real signatures are       ║
