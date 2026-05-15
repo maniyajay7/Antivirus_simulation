@@ -1,7 +1,6 @@
 # CwX — Basic Antivirus Simulation (Signature & Heuristic Scanner)
 
-> **Author:** Maniya Jay Maheshbhai — 24DCS050  
-> **Institute:** Devang Patel Institute of Advance Technology and Research (DEPSTAR)  
+> **Author:** Maniya Jay 
 > **Academic Year:** 2025–2026  
 > **Domain:** Cybersecurity Architecture & Penetration Testing Fundamentals
 
