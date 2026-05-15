@@ -277,17 +277,17 @@ def scan_single_file(
 
 # ── Full Directory Scan ──────────────────────────────────────────
 
-def run_full_scan(signatures: dict) -> list:
+def run_full_scan(signatures: dict, target_dir: str = SCAN_TARGET) -> list:
     """
     Scan every file in the target directory with a Rich progress bar.
     """
-    os.makedirs(SCAN_TARGET, exist_ok=True)
+    os.makedirs(target_dir, exist_ok=True)
 
-    files = collect_files(SCAN_TARGET)
+    files = collect_files(target_dir)
     if not files:
         console.print(
             Panel(
-                "[yellow]No files found in scan_target/ directory.\n"
+                f"[yellow]No files found in {target_dir}.\n"
                 "Place files there and scan again, or wait for the "
                 "real-time monitor to detect new arrivals.[/yellow]",
                 title="[bold yellow]Empty Target[/bold yellow]",
@@ -295,14 +295,14 @@ def run_full_scan(signatures: dict) -> list:
                 box=box.ROUNDED,
             )
         )
-        log_event("SCAN_EMPTY", "No files found in target directory.", severity="INFO")
+        log_event("SCAN_EMPTY", f"No files found in {target_dir}.", severity="INFO")
         return []
 
     log_event(
         "SCAN_START",
-        f"Full scan initiated on {SCAN_TARGET} ({len(files)} files)",
+        f"Full scan initiated on {target_dir} ({len(files)} files)",
         severity="INFO",
-        metadata={"directory": SCAN_TARGET, "file_count": len(files)},
+        metadata={"directory": target_dir, "file_count": len(files)},
     )
 
     results = []
@@ -475,6 +475,8 @@ def display_menu() -> None:
         "[dim](display recent log entries)[/dim]\n"
         "[bold bright_white]4[/bold bright_white] [white]> System Info[/white]           "
         "[dim](architecture & config overview)[/dim]\n"
+        "[bold bright_white]5[/bold bright_white] [white]> Scan Custom Path[/white]      "
+        "[dim](scan any specific file or folder on your system)[/dim]\n"
         "[bold bright_white]0[/bold bright_white] [white]> Exit[/white]                 "
         "[dim](shutdown all systems)[/dim]"
     )
@@ -665,6 +667,27 @@ def main() -> None:
 
             elif choice == "4":
                 display_system_info()
+
+            elif choice == "5":
+                console.print()
+                custom_path = console.input("[bold cyan]  Enter full file or folder path to scan: [/bold cyan]").strip()
+                # Remove surrounding quotes if the user drag-and-dropped the file
+                custom_path = custom_path.strip('\'"')
+                
+                if not os.path.exists(custom_path):
+                    console.print(f"\n[bold red]  [-] Error: Path '{custom_path}' does not exist.[/bold red]\n")
+                elif os.path.isfile(custom_path):
+                    console.rule(f"[bold bright_white]Scanning File: {os.path.basename(custom_path)}[/bold bright_white]", style="bright_green")
+                    results = []
+                    scan_single_file(custom_path, _signatures, results)
+                    if results:
+                        display_results_table(results)
+                elif os.path.isdir(custom_path):
+                    console.rule(f"[bold bright_white]Scanning Directory: {custom_path}[/bold bright_white]", style="bright_green")
+                    results = run_full_scan(_signatures, target_dir=custom_path)
+                    if results:
+                        display_results_table(results)
+                        display_summary(results)
 
             elif choice == "0":
                 monitor.stop()
