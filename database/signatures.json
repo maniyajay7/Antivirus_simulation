@@ -1,0 +1,47 @@
+{
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855": {
+        "name": "ZeroPayload.Generic",
+        "severity": "LOW",
+        "description": "Empty file commonly used as a dropper placeholder."
+    },
+    "a591a6d40bf420404a011733cfb7b190d62c65bf0bcda32b57b277d9ad9f146e": {
+        "name": "EICAR.TestString.A",
+        "severity": "HIGH",
+        "description": "Industry standard EICAR antivirus test signature."
+    },
+    "f2ca1bb6c7e907d06dafe4687e579fce76b37e4e93b7605022da52e6ccc26fd2": {
+        "name": "Trojan.TestPayload.CwX",
+        "severity": "CRITICAL",
+        "description": "Simulated trojan dropper for CwX lab testing."
+    },
+    "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08": {
+        "name": "Trojan.DropperSim.Alpha",
+        "severity": "HIGH",
+        "description": "Simulated dropper payload used for CwX demo testing."
+    },
+    "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824": {
+        "name": "Worm.HashCollider.B",
+        "severity": "MEDIUM",
+        "description": "Simulated worm propagation module signature."
+    },
+    "d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592": {
+        "name": "Ransomware.CryptoSim.V3",
+        "severity": "CRITICAL",
+        "description": "Simulated ransomware encryption routine signature."
+    },
+    "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f": {
+        "name": "Spyware.KeyCapture.Delta",
+        "severity": "HIGH",
+        "description": "Simulated keylogger data exfiltration module."
+    },
+    "4e07408562bedb8b60ce05c1decfe3ad16b72230967de01f640b7e4729b49fce": {
+        "name": "Backdoor.ReverseShell.Sim",
+        "severity": "CRITICAL",
+        "description": "Simulated reverse shell backdoor listener."
+    },
+    "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b": {
+        "name": "Rootkit.KernelHook.Alpha",
+        "severity": "CRITICAL",
+        "description": "Simulated kernel-level rootkit hook installer."
+    }
+}
