@@ -86,8 +86,7 @@ SUBTITLE = (
 )
 
 AUTHOR_LINE = (
-    "[dim]Developed by [bold bright_white]Maniya Jay Maheshbhai[/bold bright_white]"
-    " - [italic]24DCS050 | DEPSTAR[/italic][/dim]"
+    "[dim]Developed by [bold bright_white]Maniya Jay Maheshbhai[/bold bright_white]
 )
 
 
