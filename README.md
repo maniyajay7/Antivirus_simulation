@@ -110,13 +110,16 @@ basic_antivirus_sim/
 ### Step-by-Step
 
 ```bash
-# 1. Navigate to the project directory
+# 1.Clone reposetory 
+git clone https://github.com/maniyajay7/Antivirus_simulation
+
+# 2. Navigate to the project directory
 cd basic_antivirus_sim
 
-# 2. Install dependencies
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 3. Run the application
+# 4. Run the application
 python main.py
 ```
 
