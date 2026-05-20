@@ -1,7 +1,6 @@
 # CwX — Basic Antivirus Simulation (Signature & Heuristic Scanner)
 
 > **Author:** Maniya Jay 
-Technology and Research (DEPSTAR)  
 > **Academic Year:** 2025–2026  
 > **Domain:** Cybersecurity Architecture & Penetration Testing Fundamentals
 
